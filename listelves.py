@@ -16,7 +16,7 @@ contract = web3.eth.contract(address=address, abi=abi)
 #copied and modified from my other project to only show lvl 99-100 druids in game and print total
 def elftable():
     #pretty table
-    t=PrettyTable(['Name', 'Level', 'Weapon Tier', 'Class'])
+    t=PrettyTable(['Name', 'Level', 'Class'])
     i=0
     elcount = 0
     elf_id = list(range(6667))
@@ -25,12 +25,8 @@ def elftable():
         attrib=contract.functions.attributes(int(elf_id[i])).call()
         if attrib[3] == 0:
             attrib1 = 'Druid'
-        elif attrib[3] == 1:
-            attrib1 = 'Assassin'
-        else:
-            attrib1 = 'Ranger'
-        if attrib1 == 'Druid' and values[6]>=99:
-            t.add_row([int(elf_id[i]),values[6],attrib[4],attrib1])
+        if attrib1 == 'Druid' and int(values[6]) >=99:
+            t.add_row([int(elf_id[i]),values[6],attrib1])
             elcount+=1
         i+=1
     print (t)
